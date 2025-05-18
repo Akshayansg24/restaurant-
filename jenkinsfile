@@ -1,0 +1,40 @@
+pipeline {
+    agent any
+
+    environment {
+        IMAGE_NAME = 'react-todo-app'
+        DOCKER_HUB_REPO = 'anusha041/react-todo-app'
+    }
+
+    stages {
+        stage('Clone') {
+            steps {
+                git 'https://github.com/ANUSHAA06/devops-todo-app'
+            }
+        }
+
+        stage('Build React') {
+            steps {
+                sh 'npm install'
+                sh 'npm run build'
+            }
+        }
+
+        stage('Docker Build & Push') {
+            steps {
+                script {
+                    docker.withRegistry('', 'dockerhub') {
+                        def img = docker.build("${DOCKER_HUB_REPO}:latest")
+                        img.push()
+                    }
+                }
+            }
+        }
+
+        stage('Deploy to Kubernetes') {
+            steps {
+                sh 'kubectl apply -f k8s-Deployment.yaml'
+            }
+        }
+    }
+}
