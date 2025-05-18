@@ -15,6 +15,7 @@ spec:
       containers:
       - name: todo
         image: anusha041/react-todo-app
+        imagePullPolicy: Always
         ports:
         - containerPort: 80
 ---
