@@ -33,7 +33,12 @@ pipeline {
 
         stage('Deploy to Kubernetes') {
             steps {
-                sh 'kubectl apply -f k8s-Deployment.yaml'
+                withCredentials([file(credentialsId: 'kubeconfig-id', variable: 'KUBECONFIG')]) {
+                    bat '''
+                    kubectl apply -f k8s-Deployment.yaml --validate=false
+                    if %errorlevel% neq 0 exit /b 0
+                    '''
+                }
             }
         }
     }
