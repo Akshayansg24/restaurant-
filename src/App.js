@@ -20,7 +20,7 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Todo App for devops</h1>
+      <h1>Todo App</h1>
       <input
         type="text"
         value={task}
