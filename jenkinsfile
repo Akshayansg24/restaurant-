@@ -2,14 +2,15 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = 'react-todo-app'
-        DOCKER_HUB_REPO = 'anusha041/react-todo-app'
+        IMAGE_NAME = 'react-restaurant-app'
+        DOCKER_HUB_REPO = 'akshayan24/restaurant-app'
     }
 
     stages {
         stage('Clone') {
             steps {
-                git 'https://github.com/ANUSHAA06/devops-todo-app'
+
+                git 'https://github.com/Akshayansg24/restaurant-'
             }
         }
 
